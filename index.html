@@ -1,1424 +1,229 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Developer Page</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XOX GAME</title>
 <style>
-*{
-box-sizing:border-box;
-margin:0;
-padding:0
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-
-body{
-font-family:Arial,sans-serif;
-background:
-radial-gradient(circle at 50% 0,#0755a5 0,#032d59 25%,#010b15 60%,#000 100%);
-color:#fff;
-min-height:100vh;
-padding-bottom:88px
+body {
+  background: #080b0a;
+  color: white;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
-.container{
-max-width:530px;
-margin:auto;
-padding:24px 14px
+.game {
+  width: 92%;
+  max-width: 380px;
+  text-align: center;
+  padding: 25px 18px;
+  background: #111714;
+  border: 1px solid #263a2d;
+  border-radius: 22px;
+  box-shadow: 0 0 30px #00ff6620;
 }
-
-.page{display:none}
-.page.active{display:block}
-
-
-/* PROFILE */
-
-.profile{
-text-align:center
+h1 {
+  color: #00ff77;
+  font-size: 35px;
+  letter-spacing: 5px;
+  margin-bottom: 8px;
 }
-
-.profile img{
-width:125px;
-height:125px;
-object-fit:cover;
-border-radius:50%;
-border:3px solid #1687ff;
-box-shadow:0 0 25px rgba(0,130,255,.5)
+.subtitle {
+  color: #aaa;
+  margin-bottom: 24px;
 }
-
-.profile h1{
-font-size:22px;
-margin-top:11px
+.score {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 22px;
+  background: #080b09;
+  padding: 14px 5px;
+  border-radius: 12px;
 }
-
-
-/* COUNT */
-
-.count{
-margin-top:20px;
-padding:20px;
-text-align:center;
-background:#031c34;
-border:1px solid #1265a5;
-border-radius:17px
+.score div { font-size: 14px; color: #bbb; }
+.score strong {
+  display: block;
+  color: #00ff77;
+  font-size: 24px;
+  margin-top: 7px;
 }
-
-.count-number{
-font-size:44px;
-font-weight:900;
-color:#1591ff
+#status {
+  color: #fff;
+  margin-bottom: 18px;
+  font-size: 17px;
+  min-height: 20px;
 }
-
-.count-title{
-font-size:11px;
-color:#b7d8f5;
-margin-top:7px;
-font-weight:bold
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 9px;
 }
-
-
-/* BOX */
-
-.box{
-background:rgba(2,16,30,.93);
-border:1px solid #104b76;
-border-radius:16px;
-padding:16px;
-margin-top:16px
+.cell {
+  aspect-ratio: 1;
+  background: #202a23;
+  border: 1px solid #35483a;
+  border-radius: 13px;
+  color: #00ff77;
+  font-size: 46px;
+  font-weight: bold;
+  cursor: pointer;
 }
-
-.title{
-font-size:17px;
-font-weight:bold;
-margin-bottom:12px
+.cell:disabled { cursor: default; }
+.cell.win {
+  background: #07532d;
+  border-color: #00ff77;
 }
-
-
-/* DESCRIPTION */
-
-.description{
-font-size:13px;
-color:#c2d7ea;
-line-height:1.7;
-white-space:pre-wrap;
-word-break:break-word
+button:focus-visible {
+  outline: 2px solid white;
 }
-
-
-/* MESSAGE */
-
-label{
-display:block;
-font-size:11px;
-font-weight:bold;
-color:#a9cbea;
-margin:10px 0 6px
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 22px;
 }
-
-input,textarea{
-width:100%;
-background:#010a14;
-border:1px solid #125b92;
-border-radius:9px;
-color:#fff;
-outline:none;
-font-size:13px;
-padding:11px
+.actions button {
+  flex: 1;
+  padding: 13px 5px;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
 }
-
-input{height:44px}
-
-textarea{
-height:125px;
-resize:none;
-line-height:1.5
+.restart {
+  background: #00ff77;
+  color: #061008;
 }
-
-.counter{
-text-align:right;
-font-size:10px;
-color:#708aa2;
-margin-top:4px
+.reset {
+  background: #29332c;
+  color: white;
 }
-
-.send{
-width:100%;
-height:44px;
-margin-top:12px;
-border:0;
-border-radius:9px;
-background:linear-gradient(90deg,#006eff,#009cff);
-color:#fff;
-font-weight:bold
-}
-
-
-/* CONTACT */
-
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:9px
-}
-
-.contact{
-height:75px;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-gap:6px;
-border:1px solid #125887;
-border-radius:12px;
-background:#031b30;
-color:#fff;
-text-decoration:none;
-font-size:11px;
-font-weight:bold;
-cursor:pointer
-}
-
-.contact-icon{
-font-size:22px
-}
-
-
-/* CONTENT */
-
-.content{
-height:75px;
-display:flex;
-align-items:center;
-justify-content:center;
-flex-direction:column;
-gap:6px;
-border:1px solid #125887;
-border-radius:12px;
-background:#031b30;
-color:#fff;
-text-decoration:none;
-font-size:11px;
-font-weight:bold
-}
-
-
-/* CUSTOMER */
-
-.customer{
-background:#03182b;
-border:1px solid #125887;
-border-radius:16px;
-padding:14px;
-margin-bottom:12px
-}
-
-.customer-top{
-display:flex;
-align-items:center;
-gap:12px
-}
-
-.customer img{
-width:70px;
-height:70px;
-object-fit:cover;
-border-radius:50%;
-border:2px solid #1687ff;
-flex-shrink:0
-}
-
-.customer-name{
-font-size:16px;
-font-weight:bold;
-word-break:break-word
-}
-
-.customer-buttons{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:8px;
-margin-top:13px
-}
-
-.customer-button{
-height:39px;
-display:flex;
-align-items:center;
-justify-content:center;
-border-radius:9px;
-border:1px solid #15629a;
-background:#021321;
-color:#fff;
-text-decoration:none;
-font-size:10px;
-font-weight:bold
-}
-
-
-/* COPY PAGE */
-
-.copy-page{
-display:none;
-min-height:70vh;
-align-items:center;
-justify-content:center
-}
-
-.copy-page.active{
-display:flex
-}
-
-.copy-box{
-width:100%;
-background:#031a2f;
-border:1px solid #12609a;
-border-radius:17px;
-padding:20px;
-text-align:center
-}
-
-.copy-box h2{
-font-size:19px;
-margin-bottom:15px
-}
-
-.copy-value{
-background:#010a14;
-border:1px solid #125587;
-border-radius:9px;
-padding:13px;
-font-size:14px;
-word-break:break-all;
-color:#c7ddf1;
-margin-bottom:10px
-}
-
-.copy-btn,.back-btn{
-width:100%;
-height:43px;
-border-radius:9px;
-font-weight:bold;
-cursor:pointer
-}
-
-.copy-btn{
-border:0;
-background:linear-gradient(90deg,#006eff,#009cff);
-color:#fff
-}
-
-.back-btn{
-margin-top:8px;
-border:1px solid #155b8c;
-background:#031525;
-color:#fff
-}
-
-
-/* NAV */
-
-.nav{
-position:fixed;
-left:50%;
-bottom:11px;
-transform:translateX(-50%);
-width:calc(100% - 24px);
-max-width:500px;
-height:62px;
-background:rgba(1,12,23,.97);
-border:1px solid #125b94;
-border-radius:17px;
-display:grid;
-grid-template-columns:1fr 1fr;
-padding:5px;
-z-index:100
-}
-
-.nav button{
-border:0;
-background:transparent;
-color:#718da7;
-border-radius:12px;
-font-weight:bold;
-font-size:11px
-}
-
-.nav button.active{
-background:#06375f;
-color:#fff
-}
-
-.empty{
-text-align:center;
-color:#718ba3;
-font-size:12px;
-padding:25px 5px
+footer {
+  color: #777;
+  font-size: 12px;
+  margin-top: 20px;
 }
 </style>
 </head>
-
 <body>
 
+<div class="game">
+  <h1>XOX GAME</h1>
+  <p class="subtitle">TIC TAC TOE</p>
 
-<div class="container">
+  <div class="score">
+    <div>PLAYER X<strong id="scoreX">0</strong></div>
+    <div>DRAW<strong id="scoreD">0</strong></div>
+    <div>PLAYER O<strong id="scoreO">0</strong></div>
+  </div>
 
+  <p id="status">Player X-এর চাল</p>
 
-<!-- ================= HOME ================= -->
+  <div class="board" id="board">
+    <button class="cell" aria-label="ঘর ১"></button>
+    <button class="cell" aria-label="ঘর ২"></button>
+    <button class="cell" aria-label="ঘর ৩"></button>
+    <button class="cell" aria-label="ঘর ৪"></button>
+    <button class="cell" aria-label="ঘর ৫"></button>
+    <button class="cell" aria-label="ঘর ৬"></button>
+    <button class="cell" aria-label="ঘর ৭"></button>
+    <button class="cell" aria-label="ঘর ৮"></button>
+    <button class="cell" aria-label="ঘর ৯"></button>
+  </div>
 
-<section id="homePage" class="page active">
+  <div class="actions">
+    <button class="restart" id="restart">↻ RESTART</button>
+    <button class="reset" id="reset">RESET SCORE</button>
+  </div>
 
-
-<div class="profile">
-
-<img
-id="profilePhoto"
-src="https://via.placeholder.com/300">
-
-<h1 id="profileName">
-Developer
-</h1>
-
+  <footer>MADE WITH ♥ · XOX GAME</footer>
 </div>
 
-
-<!-- APP COUNT -->
-
-<div class="count">
-
-<div
-id="appCount"
-class="count-number">
-0
-</div>
-
-<div class="count-title">
-APP & WEBSITE DEVELOPED
-</div>
-
-</div>
-
-
-<!-- DESCRIPTION -->
-
-<div class="box">
-
-<div class="title">
-ABOUT ME
-</div>
-
-<div
-id="description"
-class="description">
-</div>
-
-</div>
-
-
-<!-- MESSAGE -->
-
-<div class="box">
-
-<div class="title">
-MSG ME
-</div>
-
-<label>SUBJECT</label>
-
-<input
-id="subject"
-maxlength="100"
-placeholder="Subject">
-
-<div class="counter">
-<span id="subjectCounter">0</span>/100
-</div>
-
-
-<label>DESCRIPTION</label>
-
-<textarea
-id="message"
-maxlength="5000"
-placeholder="Write your message..."></textarea>
-
-<div class="counter">
-<span id="messageCounter">0</span>/5000
-</div>
-
-
-<button
-id="sendMessage"
-class="send">
-SEND
-</button>
-
-</div>
-
-
-<!-- CONTACT -->
-
-<div class="box">
-
-<div class="title">
-CONTACT ME
-</div>
-
-<div class="grid">
-
-
-<a
-id="facebookContact"
-class="contact"
-href="#"
-target="_blank">
-<div class="contact-icon">f</div>
-FACEBOOK
-</a>
-
-
-<a
-id="telegramContact"
-class="contact"
-href="#"
-target="_blank">
-<div class="contact-icon">✈</div>
-TELEGRAM
-</a>
-
-
-<button
-id="whatsappContact"
-class="contact">
-<div class="contact-icon">☎</div>
-WHATSAPP
-</button>
-
-
-<button
-id="gmailContact"
-class="contact">
-<div class="contact-icon">✉</div>
-GMAIL
-</button>
-
-
-</div>
-</div>
-
-
-<!-- MY CONTENT -->
-
-<div class="box">
-
-<div class="title">
-MY CONTENT
-</div>
-
-<div class="grid">
-
-
-<a
-id="youtube"
-class="content"
-href="#"
-target="_blank">
-<div>▶</div>
-YOUTUBE
-</a>
-
-
-<a
-id="tiktok"
-class="content"
-href="#"
-target="_blank">
-<div>♪</div>
-TIKTOK
-</a>
-
-
-<a
-id="contentTelegram"
-class="content"
-href="#"
-target="_blank">
-<div>✈</div>
-TELEGRAM
-</a>
-
-
-<a
-id="contentFacebook"
-class="content"
-href="#"
-target="_blank">
-<div>f</div>
-FACEBOOK
-</a>
-
-
-</div>
-</div>
-
-</section>
-
-
-
-<!-- ================= CUSTOMER ================= -->
-
-<section
-id="customerPage"
-class="page">
-
-<div class="box" style="margin-top:0">
-
-<div class="title">
-MY CUSTOMERS
-</div>
-
-<div style="
-font-size:11px;
-color:#7e9ab4;
-margin-top:-6px;
-margin-bottom:12px">
-
-Websites & Apps Developed
-
-</div>
-
-<div id="customerList">
-
-<div class="empty">
-Loading customers...
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-
-<!-- ================= WHATSAPP ================= -->
-
-<section
-id="whatsappPage"
-class="copy-page">
-
-<div class="copy-box">
-
-<h2>WHATSAPP NUMBER</h2>
-
-<div
-id="whatsappValue"
-class="copy-value">
-Not available
-</div>
-
-<button
-id="copyWhatsapp"
-class="copy-btn">
-COPY
-</button>
-
-<button
-class="back-btn"
-onclick="showPage('home')">
-BACK
-</button>
-
-</div>
-
-</section>
-
-
-
-<!-- ================= GMAIL ================= -->
-
-<section
-id="gmailPage"
-class="copy-page">
-
-<div class="copy-box">
-
-<h2>GMAIL</h2>
-
-<div
-id="gmailValue"
-class="copy-value">
-Not available
-</div>
-
-<button
-id="copyGmail"
-class="copy-btn">
-COPY
-</button>
-
-<button
-class="back-btn"
-onclick="showPage('home')">
-BACK
-</button>
-
-</div>
-
-</section>
-
-
-</div>
-
-
-
-<!-- ================= NAV ================= -->
-
-<div class="nav">
-
-<button
-id="homeNav"
-class="active"
-onclick="showPage('home')">
-
-⌂<br>
-HOME
-
-</button>
-
-
-<button
-id="customerNav"
-onclick="showPage('customer')">
-
-👤<br>
-CUSTOMER
-
-</button>
-
-</div>
-
-
-
-<script type="module">
-
-import {initializeApp}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-getFirestore,
-doc,
-getDoc,
-collection,
-addDoc,
-serverTimestamp,
-onSnapshot,
-query,
-orderBy
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-
-/* =========================
-   SAME FIREBASE CONFIG
-========================= */
-
-const firebaseConfig = {
-  apiKey: "AIzaSyDc24PQl_vZy13Y_0zBkTvuTq58N3ZF3ng",
-  authDomain: "tbl-tournament.firebaseapp.com",
-  databaseURL: "https://tbl-tournament-default-rtdb.firebaseio.com",
-  projectId: "tbl-tournament",
-  storageBucket: "tbl-tournament.firebasestorage.app",
-  messagingSenderId: "1039636072065",
-  appId: "1:1039636072065:web:94007ee4ed8357fe7caf80",
-  measurementId: "G-BNSVP44NJQ"
-};
-
-
-const app=initializeApp(firebaseConfig);
-const db=getFirestore(app);
-
-
-const settingsRef=
-doc(db,"settings","developer");
-
-
-let whatsapp="";
-let gmail="";
-
-
-/* =========================
-   LOAD SETTINGS
-========================= */
-
-async function loadSettings(){
-
-try{
-
-const snap=
-await getDoc(settingsRef);
-
-
-if(!snap.exists()){
-
-return;
-}
-
-
-const d=snap.data();
-
-
-/* PROFILE */
-
-document
-.getElementById("profilePhoto")
-.src=
-d.photo||
-"https://via.placeholder.com/300";
-
-
-document
-.getElementById("profileName")
-.textContent=
-d.name||
-"Developer";
-
-
-/* APP COUNT */
-
-document
-.getElementById("appCount")
-.textContent=
-d.appWebsiteCount ??
-0;
-
-
-/* DESCRIPTION */
-
-document
-.getElementById("description")
-.textContent=
-d.description||
-"";
-
-
-/* CONTACT */
-
-whatsapp=
-d.whatsappNumber||
-"";
-
-gmail=
-d.gmail||
-"";
-
-
-setLink(
-"facebookContact",
-d.facebookProfile
-);
-
-setLink(
-"telegramContact",
-d.telegramProfile
-);
-
-
-/* CONTENT */
-
-setLink(
-"youtube",
-d.youtube
-);
-
-setLink(
-"tiktok",
-d.tiktok
-);
-
-setLink(
-"contentTelegram",
-d.contentTelegram
-);
-
-setLink(
-"contentFacebook",
-d.contentFacebook
-);
-
-
-}catch(e){
-
-console.error(
-"Settings error:",
-e
-);
-
-}
-
-}
-
-
-/* =========================
-   LINKS
-========================= */
-
-function setLink(id,link){
-
-const el=
-document.getElementById(id);
-
-
-if(link){
-
-el.href=link;
-
-}else{
-
-el.style.display="none";
-
-}
-
-}
-
-
-/* =========================
-   CUSTOMER LIVE DATA
-========================= */
-
-function loadCustomers(){
-
-const list=
-document.getElementById(
-"customerList"
-);
-
-
-const q=query(
-collection(db,"customers"),
-orderBy("createdAt","desc")
-);
-
-
-onSnapshot(
-
-q,
-
-snapshot=>{
-
-list.innerHTML="";
-
-
-if(snapshot.empty){
-
-list.innerHTML=`
-
-<div class="empty">
-No customers added yet.
-</div>
-
-`;
-
-return;
-
-}
-
-
-snapshot.forEach(
-customerDoc=>{
-
-const d=
-customerDoc.data();
-
-
-/*
-CUSTOMER-এ শুধু:
-PHOTO
-NAME
-WEBSITE
-PROFILE
-
-Description নেই।
-App Count নেই।
-*/
-
-
-const card=
-document.createElement(
-"div"
-);
-
-card.className=
-"customer";
-
-
-const top=
-document.createElement(
-"div"
-);
-
-top.className=
-"customer-top";
-
-
-const img=
-document.createElement(
-"img"
-);
-
-img.src=
-d.photo||
-"https://via.placeholder.com/300";
-
-
-const name=
-document.createElement(
-"div"
-);
-
-name.className=
-"customer-name";
-
-name.textContent=
-d.name||
-"Customer";
-
-
-top.appendChild(img);
-top.appendChild(name);
-
-
-card.appendChild(top);
-
-
-const buttons=
-document.createElement(
-"div"
-);
-
-buttons.className=
-"customer-buttons";
-
-
-if(d.websiteLink){
-
-const website=
-document.createElement(
-"a"
-);
-
-website.className=
-"customer-button";
-
-website.href=
-d.websiteLink;
-
-website.target="_blank";
-
-website.rel="noopener";
-
-website.textContent=
-"WEBSITE";
-
-buttons.appendChild(
-website
-);
-
-}
-
-
-if(d.profileLink){
-
-const profile=
-document.createElement(
-"a"
-);
-
-profile.className=
-"customer-button";
-
-profile.href=
-d.profileLink;
-
-profile.target="_blank";
-
-profile.rel="noopener";
-
-profile.textContent=
-"CUSTOMER PROFILE";
-
-buttons.appendChild(
-profile
-);
-
-}
-
-
-card.appendChild(
-buttons
-);
-
-
-list.appendChild(
-card
-);
-
-});
-
-},
-
-error=>{
-
-console.error(
-"Customer error:",
-error
-);
-
-list.innerHTML=`
-
-<div class="empty">
-Customers could not be loaded.
-</div>
-
-`;
-
-}
-
-);
-
-}
-
-
-/* =========================
-   SEND MESSAGE
-========================= */
-
-document
-.getElementById("sendMessage")
-.onclick=
-async()=>{
-
-const subject=
-document
-.getElementById("subject")
-.value
-.trim();
-
-
-const description=
-document
-.getElementById("message")
-.value
-.trim();
-
-
-if(!subject){
-
-alert("Please enter subject.");
-
-return;
-
-}
-
-
-if(!description){
-
-alert("Please enter description.");
-
-return;
-
-}
-
-
-const button=
-document
-.getElementById("sendMessage");
-
-
-try{
-
-button.disabled=true;
-button.textContent="SENDING...";
-
-
-await addDoc(
-collection(db,"messages"),
-{
-
-subject:subject,
-
-description:description,
-
-createdAt:
-serverTimestamp()
-
-}
-);
-
-
-/*
-Send করার পরে
-form clear হবে।
-*/
-
-document
-.getElementById("subject")
-.value="";
-
-
-document
-.getElementById("message")
-.value="";
-
-
-updateCounters();
-
-
-alert(
-"Message sent successfully!"
-);
-
-
-}catch(e){
-
-console.error(e);
-
-alert(
-"Message could not be sent."
-);
-
-}
-
-
-button.disabled=false;
-button.textContent="SEND";
-
-};
-
-
-/* =========================
-   WHATSAPP
-========================= */
-
-document
-.getElementById("whatsappContact")
-.onclick=()=>{
-
-document
-.getElementById("whatsappValue")
-.textContent=
-whatsapp||
-"Not available";
-
-showPage("whatsapp");
-
-};
-
-
-/* =========================
-   GMAIL
-========================= */
-
-document
-.getElementById("gmailContact")
-.onclick=()=>{
-
-document
-.getElementById("gmailValue")
-.textContent=
-gmail||
-"Not available";
-
-showPage("gmail");
-
-};
-
-
-/* =========================
-   COPY
-========================= */
-
-async function copyText(text){
-
-if(!text){
-
-alert("Nothing to copy.");
-
-return;
-
-}
-
-
-try{
-
-await navigator.clipboard.writeText(
-text
-);
-
-alert("Copied!");
-
-}catch(e){
-
-const temp=
-document.createElement(
-"textarea"
-);
-
-temp.value=text;
-
-document.body.appendChild(
-temp
-);
-
-temp.select();
-
-document.execCommand(
-"copy"
-);
-
-temp.remove();
-
-alert("Copied!");
-
-}
-
-}
-
-
-document
-.getElementById("copyWhatsapp")
-.onclick=
-()=>copyText(whatsapp);
-
-
-document
-.getElementById("copyGmail")
-.onclick=
-()=>copyText(gmail);
-
-
-/* =========================
-   PAGE
-========================= */
-
-window.showPage=
-function(page){
-
-const pages=[
-"homePage",
-"customerPage",
-"whatsappPage",
-"gmailPage"
+<script>
+const cells = [...document.querySelectorAll(".cell")];
+const statusText = document.getElementById("status");
+let board = Array(9).fill("");
+let current = "X";
+let gameOver = false;
+let scores = { X: 0, O: 0, D: 0 };
+
+const wins = [
+  [0,1,2], [3,4,5], [6,7,8],
+  [0,3,6], [1,4,7], [2,5,8],
+  [0,4,8], [2,4,6]
 ];
 
+function play(index) {
+  if (gameOver || board[index]) return;
 
-pages.forEach(id=>{
+  board[index] = current;
+  cells[index].textContent = current;
+  cells[index].disabled = true;
 
-document
-.getElementById(id)
-.classList
-.remove("active");
+  const winningLine = wins.find(line =>
+    line.every(i => board[i] === current)
+  );
 
+  if (winningLine) {
+    gameOver = true;
+    winningLine.forEach(i => cells[i].classList.add("win"));
+    scores[current]++;
+    updateScores();
+    statusText.textContent = "🎉 Player " + current + " Wins!";
+    cells.forEach(cell => cell.disabled = true);
+    return;
+  }
+
+  if (board.every(Boolean)) {
+    gameOver = true;
+    scores.D++;
+    updateScores();
+    statusText.textContent = "🤝 ম্যাচ ড্র হয়েছে!";
+    return;
+  }
+
+  current = current === "X" ? "O" : "X";
+  statusText.textContent = "Player " + current + "-এর চাল";
+}
+
+function updateScores() {
+  document.getElementById("scoreX").textContent = scores.X;
+  document.getElementById("scoreO").textContent = scores.O;
+  document.getElementById("scoreD").textContent = scores.D;
+}
+
+function restartGame() {
+  board = Array(9).fill("");
+  current = "X";
+  gameOver = false;
+  cells.forEach(cell => {
+    cell.textContent = "";
+    cell.disabled = false;
+    cell.classList.remove("win");
+  });
+  statusText.textContent = "Player X-এর চাল";
+}
+
+cells.forEach((cell, index) => {
+  cell.addEventListener("click", () => play(index));
 });
 
+document.getElementById("restart")
+  .addEventListener("click", restartGame);
 
-document
-.getElementById(
-page+"Page"
-)
-.classList
-.add("active");
-
-
-document
-.getElementById("homeNav")
-.classList
-.remove("active");
-
-
-document
-.getElementById("customerNav")
-.classList
-.remove("active");
-
-
-if(page==="home"){
-
-document
-.getElementById("homeNav")
-.classList
-.add("active");
-
-}
-
-
-if(page==="customer"){
-
-document
-.getElementById("customerNav")
-.classList
-.add("active");
-
-}
-
-
-window.scrollTo(0,0);
-
-};
-
-
-/* =========================
-   MESSAGE COUNTERS
-========================= */
-
-function updateCounters(){
-
-document
-.getElementById("subjectCounter")
-.textContent=
-document
-.getElementById("subject")
-.value
-.length;
-
-
-document
-.getElementById("messageCounter")
-.textContent=
-document
-.getElementById("message")
-.value
-.length;
-
-}
-
-
-document
-.getElementById("subject")
-.addEventListener(
-"input",
-updateCounters
-);
-
-
-document
-.getElementById("message")
-.addEventListener(
-"input",
-updateCounters
-);
-
-
-/* =========================
-   START
-========================= */
-
-loadSettings();
-
-loadCustomers();
-
-updateCounters();
-
+document.getElementById("reset").addEventListener("click", () => {
+  scores = { X: 0, O: 0, D: 0 };
+  updateScores();
+  restartGame();
+});
 </script>
 
 </body>
-</html>
+     </html>
